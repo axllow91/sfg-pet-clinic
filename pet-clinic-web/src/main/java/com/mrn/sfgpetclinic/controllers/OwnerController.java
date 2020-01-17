@@ -15,7 +15,7 @@ public class OwnerController {
         this.ownerService = ownerService;
     }
 
-    @RequestMapping({"/", "/index", "/index.html"})
+    @RequestMapping({"", "/index", "/index.html"})
     public String owners(Model model) {
         // this is called by spring mvc and will inject the model to it. when will run will return the allOwners find by the service
         model.addAttribute("owners", ownerService.findAll());
