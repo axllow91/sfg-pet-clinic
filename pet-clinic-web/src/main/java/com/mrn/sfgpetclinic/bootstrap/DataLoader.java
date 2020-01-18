@@ -1,6 +1,7 @@
 package com.mrn.sfgpetclinic.bootstrap;
 
 import com.mrn.sfgpetclinic.model.Owner;
+import com.mrn.sfgpetclinic.model.Pet;
 import com.mrn.sfgpetclinic.model.PetType;
 import com.mrn.sfgpetclinic.model.Vet;
 import com.mrn.sfgpetclinic.services.OwnerService;
@@ -8,6 +9,8 @@ import com.mrn.sfgpetclinic.services.PetTypeService;
 import com.mrn.sfgpetclinic.services.VetService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 // becomes a spring bean and is loaded in the spring context where the spring context after gets up and running will run the run the context method and will
 // run
@@ -38,12 +41,34 @@ public class DataLoader implements CommandLineRunner {
         Owner owner1 = new Owner();
         owner1.setFirstName("Michael");
         owner1.setLastName("Weston");
+        owner1.setAddress("123 Some Street");
+        owner1.setCity("Miami");
+        owner1.setTelephone("9999999");
+
+        Pet mikePet = new Pet();
+        mikePet.setPetType(savedDogPetType);
+        mikePet.setOwner(owner1);
+        mikePet.setBirthDate(LocalDate.now());
+        mikePet.setName("Rosco");
+
+        owner1.getPets().add(mikePet);
 
         ownerService.save(owner1);
 
         Owner owner2 = new Owner();
         owner2.setFirstName("Fiona");
         owner2.setLastName("Glenanne");
+        owner1.setAddress("111 Darvai");
+        owner1.setCity("Moscow");
+        owner1.setTelephone("1111111");
+
+        Pet fionaPet = new Pet();
+        mikePet.setPetType(savedCatPetType);
+        mikePet.setOwner(owner2);
+        mikePet.setBirthDate(LocalDate.now());
+        mikePet.setName("Petisca");
+
+        owner2.getPets().add(fionaPet);
 
         ownerService.save(owner2);
 
