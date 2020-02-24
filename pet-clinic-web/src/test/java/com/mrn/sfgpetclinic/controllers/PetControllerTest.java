@@ -1,6 +1,7 @@
 package com.mrn.sfgpetclinic.controllers;
 
 import com.mrn.sfgpetclinic.model.Owner;
+import com.mrn.sfgpetclinic.model.Pet;
 import com.mrn.sfgpetclinic.model.PetType;
 import com.mrn.sfgpetclinic.services.OwnerService;
 import com.mrn.sfgpetclinic.services.PetService;
@@ -25,6 +26,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+
 @ExtendWith(MockitoExtension.class)
 class PetControllerTest {
 
@@ -47,12 +49,11 @@ class PetControllerTest {
 
     @BeforeEach
     void setUp() {
-        // create owner
         owner = Owner.builder().id(1L).build();
 
         petTypes = new HashSet<>();
         petTypes.add(PetType.builder().id(1L).name("Dog").build());
-        petTypes.add(PetType.builder().id(1L).name("Cat").build());
+        petTypes.add(PetType.builder().id(2L).name("Cat").build());
 
         mockMvc = MockMvcBuilders
                 .standaloneSetup(petController)
@@ -87,12 +88,13 @@ class PetControllerTest {
     void initUpdateForm() throws Exception {
         when(ownerService.findById(anyLong())).thenReturn(owner);
         when(petTypeService.findAll()).thenReturn(petTypes);
+        when(petService.findById(anyLong())).thenReturn(Pet.builder().id(2L).build());
 
-        mockMvc.perform(get("owners/1/pets/edit"))
+        mockMvc.perform(get("/owners/1/pets/2/edit"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("owner"))
                 .andExpect(model().attributeExists("pet"))
-                .andExpect(view().name("pets/createOrUpdateForm"));
+                .andExpect(view().name("pets/createOrUpdatePetForm"));
     }
 
     @Test
@@ -109,7 +111,7 @@ class PetControllerTest {
 
     @Test
     void populatePetTypes() {
-        // todo
+        //todo impl
     }
 
     @Test
@@ -119,8 +121,6 @@ class PetControllerTest {
 
     @Test
     void initOwnerBinder() {
-        // todo impl
+        //todo impl
     }
-
-
 }

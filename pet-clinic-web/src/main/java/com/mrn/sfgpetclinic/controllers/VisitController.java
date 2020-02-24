@@ -1,5 +1,6 @@
 package com.mrn.sfgpetclinic.controllers;
 
+import com.mrn.sfgpetclinic.model.Owner;
 import com.mrn.sfgpetclinic.model.Pet;
 import com.mrn.sfgpetclinic.model.Visit;
 import com.mrn.sfgpetclinic.services.PetService;
@@ -64,8 +65,9 @@ public class VisitController {
     }
 
     // Spring MVC calls method loadPetWithVisit() before processNewVisitForm is called
-    @PostMapping("/owners/{ownerId}/pets/{petId}visits/new")
-    public String processNewVisitForm(@Valid Visit visit, BindingResult result) {
+    @PostMapping("/owners/{ownerId}/pets/{petId}/visits/new")
+    public String processNewVisitForm(@Valid Visit visit, Owner owner,
+                                      BindingResult result) {
         if (result.hasErrors()) {
             return "pets/createOrUpdateVisitForm";
         } else {
@@ -73,5 +75,4 @@ public class VisitController {
             return "redirect:/owners/{ownerId}";
         }
     }
-
 }
