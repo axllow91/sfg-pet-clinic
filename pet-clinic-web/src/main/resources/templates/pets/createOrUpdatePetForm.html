@@ -1,4 +1,3 @@
-
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
 
@@ -8,7 +7,6 @@
     <th:block th:if="${pet['new']}">New </th:block>
     Pet
 </h2>
-<!--/*@thymesVar id="pet" type="com.mrn.sfgpetclinic.model.Pet"*/-->
 <form th:object="${pet}" class="form-horizontal" method="post">
     <input type="hidden" name="id" th:value="*{id}" />
     <div class="form-group has-feedback">
@@ -36,5 +34,3 @@
 </form>
 
 </body>
-
-</html>

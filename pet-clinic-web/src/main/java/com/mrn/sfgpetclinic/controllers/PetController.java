@@ -50,7 +50,8 @@ public class PetController {
     @GetMapping("/pets/new")
     public String initCreationForm(Owner owner, Model model) {
         Pet pet = new Pet();
-        owner.getPets().add(pet);
+        owner.getPets().add(pet); // add pet to owner
+        pet.setOwner(owner); // set the owner for the pet - gives null  on the name in the pet form create/update
         model.addAttribute("pet", pet);
         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
     }
@@ -71,6 +72,8 @@ public class PetController {
             return "redirect:/owners/{ownerId}";
         }
     }
+
+
 
 
 }
